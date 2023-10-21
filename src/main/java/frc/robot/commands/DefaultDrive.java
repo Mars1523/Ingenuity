@@ -14,7 +14,7 @@ public class DefaultDrive extends CommandBase {
     private XboxController primaryController;
     private Drivetrain drivetrain;
     private BalanceAuto balanceAuto;
-    SlewRateLimiter filter = new SlewRateLimiter(0.5);
+    SlewRateLimiter filter = new SlewRateLimiter(1);
     SlewRateLimiter filterTurn = new SlewRateLimiter(1);
 
     // pretend that there is a second controller
