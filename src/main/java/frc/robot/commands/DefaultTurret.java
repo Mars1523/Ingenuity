@@ -46,11 +46,11 @@ public class DefaultTurret extends CommandBase {
     public void execute() {
 
         // code for extending arm
-        if (primaryController.getAButton()) {
-            clawSystem.setExtendSetPoint(armExtendSpeed);
-        } else if (primaryController.getBButton()) {
-            clawSystem.setExtendSetPoint(-armExtendSpeed);
-        }
+       // if (primaryController.getAButton()) {
+       //     clawSystem.setExtendSetPoint(armExtendSpeed);
+       // } else if (primaryController.getBButton()) {
+       //     clawSystem.setExtendSetPoint(-armExtendSpeed);
+       // }
 
         // code for claw
         if (secondaryController.getAButtonPressed()) {

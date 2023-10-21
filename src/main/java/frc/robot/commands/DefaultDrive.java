@@ -19,8 +19,6 @@ public class DefaultDrive extends CommandBase {
 
     // pretend that there is a second controller
 
-    private final SlewRateLimiter speedLimiter = new SlewRateLimiter(5);
-    private final SlewRateLimiter rotLimiter = new SlewRateLimiter(3);
 
     public DefaultDrive(Drivetrain drivetrain, XboxController primaryController) {
         addRequirements(drivetrain);
@@ -33,11 +31,30 @@ public class DefaultDrive extends CommandBase {
     public void initialize() {
     }
 
+    //speed lowering toggle
+
+    Boolean slow = false;
+    SlewRateLimiter slowLimiter = new SlewRateLimiter(1);
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
 
-        final double xSpeed = -primaryController.getLeftY();
+        double xSpeed = -primaryController.getLeftY();
+        if(primaryController.getAButtonPressed()) {
+            slow = !slow;
+        }
+
+        //if , slow true x*=0.5
+        //if , slow false x*=1
+        xSpeed *= slowLimiter.calculate(slow ? 0.5 : 1);
+
+
+
+        //toggle condition
+        //if(speedDouble){
+        //    xSpeed *= 0.5;
+        //}
+
         final double rot = primaryController.getRightX();
         drivetrain.driveMecanum(
                 xSpeed,
@@ -47,6 +64,7 @@ public class DefaultDrive extends CommandBase {
         if (primaryController.getStartButton()) {
             drivetrain.zero();
         }
+
         // drivetrain.driveMecanum(primaryController.getRightY() * .3,
         // primaryController.getLeftX() * .3,
         // primaryController.getRightX() * .3);
