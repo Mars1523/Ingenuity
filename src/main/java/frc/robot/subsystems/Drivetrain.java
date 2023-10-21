@@ -50,7 +50,7 @@ public class Drivetrain extends SubsystemBase {
 
     // pretend that there is a second controller
 
-    private final SlewRateLimiter speedLimiter = new SlewRateLimiter(5);
+    private final SlewRateLimiter speedLimiter = new SlewRateLimiter(3);
     private final SlewRateLimiter rotLimiter = new SlewRateLimiter(3);
 
     // Odometry stuffs
@@ -191,6 +191,7 @@ public class Drivetrain extends SubsystemBase {
         return navx.getRoll();
     }
 
+   
     // public void drive(double x, double y, double z) {
     // drivetrain.driveCartesian(-x, y, z);
     // }
