@@ -34,7 +34,7 @@ public class DefaultDrive extends CommandBase {
     //speed lowering toggle
 
     Boolean slow = false;
-    SlewRateLimiter slowLimiter = new SlewRateLimiter(1);
+    SlewRateLimiter slowLimiter = new SlewRateLimiter(0.75);
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
