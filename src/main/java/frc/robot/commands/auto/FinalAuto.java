@@ -122,7 +122,7 @@ public class FinalAuto extends SequentialCommandGroup {
                 new BalanceAuto(drivetrain, -0.4).withTimeout(6),
                 new Drive(drivetrain, -.5, -.2).withTimeout(5),
                 new BalanceAutoPartTwo(drivetrain, -0.15).withTimeout(5),
-                new Drive(drivetrain, .08, .2).withTimeout(5));
+                new Drive(drivetrain, -.08, .2).withTimeout(5));
     }
 
 }
