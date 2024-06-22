@@ -1,6 +1,6 @@
 package frc.robot.commands.limelight;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight;
 import frc.robot.Constants;
 import frc.robot.subsystems.ClawSystem;
@@ -9,7 +9,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 
-public class LimelightHorizAim extends CommandBase {
+public class LimelightHorizAim extends Command {
     private ClawSystem clawSystem;
     private Limelight limelight;
     private XboxController secondaryController;

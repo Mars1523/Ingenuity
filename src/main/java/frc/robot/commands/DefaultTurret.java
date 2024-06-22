@@ -8,13 +8,13 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Robot;
 import frc.robot.subsystems.ClawSystem;
 import frc.robot.commands.limelight.LimelightHorizAim;
 
-public class DefaultTurret extends CommandBase {
+public class DefaultTurret extends Command {
     // Constant variables for speed
     private final double armExtendSpeed = .6;
     private final double TableSpinSpeed = .3;

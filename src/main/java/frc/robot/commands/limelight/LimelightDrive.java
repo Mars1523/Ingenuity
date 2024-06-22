@@ -1,6 +1,6 @@
 package frc.robot.commands.limelight;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight;
 import frc.robot.Constants;
 import frc.robot.subsystems.ClawSystem;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Constants;
 
-public class LimelightDrive extends CommandBase {
+public class LimelightDrive extends Command {
     private ClawSystem clawSystem;
     private final PIDController turnPid;
     private final PIDController distancePid;

@@ -5,10 +5,10 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClawSystem;
 
-public class MoveArm extends CommandBase {
+public class MoveArm extends Command {
 
     private ClawSystem clawSystem;
     private double setpoint;

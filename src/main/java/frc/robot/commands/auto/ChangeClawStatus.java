@@ -4,10 +4,10 @@
 
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClawSystem;
 
-public class ChangeClawStatus extends CommandBase {
+public class ChangeClawStatus extends Command {
     enum ClawStatus {
         OPEN,
         CLOSE

@@ -4,34 +4,33 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
+import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
     /** Creates a new Drivetrain. */
     // motor setup
-    private final WPI_TalonFX leftFront = new WPI_TalonFX(3);
-    private final WPI_TalonFX rightRear = new WPI_TalonFX(2);
-    private final WPI_TalonFX leftRear = new WPI_TalonFX(5);
-    private final WPI_TalonFX rightFront = new WPI_TalonFX(4);
+    private final TalonFX leftFront = new TalonFX(3);
+    private final TalonFX rightRear = new TalonFX(2);
+    private final TalonFX leftRear = new TalonFX(5);
+    private final TalonFX rightFront = new TalonFX(4);
 
     private final MotorControllerGroup leftMotors = new MotorControllerGroup(leftFront, leftRear);
     private final MotorControllerGroup rightMotors = new MotorControllerGroup(rightFront, rightRear);
@@ -85,18 +84,27 @@ public class Drivetrain extends SubsystemBase {
         odometry = new MecanumDriveOdometry(kinematics, navx.getRotation2d(),
                 new MecanumDriveWheelPositions(getFLDistance(), getFRDistance(), getRLDistance(), getRRDistance()),
                 new Pose2d(2.0, 3.03, new Rotation2d()));
-        rightRear.setInverted(true);
-        rightFront.setInverted(true);
+
+        // final TalonFXConfiguration m_talonFXConfig = new TalonFXConfiguration();
+        // m_talonFXConfig.MotorOutput.Inverted = true;
+        // rightRear.getConfigurator().apply(m_talonFXConfig);
 
         // Setup for each wheel motor
-        WPI_TalonFX motors[] = { leftFront, leftRear, rightFront, rightRear };
-        for (WPI_TalonFX wheelMotor : motors) {
-            wheelMotor.configNominalOutputForward(0);
-            wheelMotor.configNominalOutputReverse(0);
-            wheelMotor.configFactoryDefault();
-            wheelMotor.setNeutralMode(NeutralMode.Brake);
+        TalonFX motors[] = { leftFront, leftRear, rightFront, rightRear };
+        for (TalonFX wheelMotor : motors) {
+            final TalonFXConfiguration m_talonFXConfig = new TalonFXConfiguration();
+            // m_talonFXConfig.MotorOutput.Inverted
+            m_talonFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            // wheelMotor.getConfigurator().apply(new )
+            // wheelMotor.configNominalOutputForward(0);
+            // wheelMotor.configNominalOutputReverse(0);
+            // wheelMotor.configFactoryDefault();
+            // wheelMotor.setNeutralMode(NeutralMode.Brake);
+            wheelMotor.getConfigurator().apply(m_talonFXConfig);
         }
 
+        rightRear.setInverted(true);
+        rightFront.setInverted(true);
     }
 
     public void driveFieldOriented(double x, double y, double rotation) {
@@ -130,10 +138,10 @@ public class Drivetrain extends SubsystemBase {
         // driveOdometry.resetPosition(new Pose2d(0.0, 0.0, new Rotation2d()),
         // Rotation2d.fromDegrees(navx.getYaw()));
         zero();
-        leftFront.setSelectedSensorPosition(0);
-        rightFront.setSelectedSensorPosition(0);
-        leftRear.setSelectedSensorPosition(0);
-        rightRear.setSelectedSensorPosition(0);
+        // leftFront.setSelectedSensorPosition(0);
+        // rightFront.setSelectedSensorPosition(0);
+        // leftRear.setSelectedSensorPosition(0);
+        // rightRear.setSelectedSensorPosition(0);
     }
 
     public Rotation2d getRotation() {
@@ -150,22 +158,22 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getRRDistance() {
-        double distance = rightRear.getSelectedSensorPosition() * kDistancePerTick;
+        double distance = rightRear.getPosition().getValueAsDouble() * kDistancePerTick;
         return distance;
     }
 
     public double getRLDistance() {
-        double distance = leftRear.getSelectedSensorPosition() * kDistancePerTick;
+        double distance = leftRear.getPosition().getValueAsDouble() * kDistancePerTick;
         return distance;
     }
 
     public double getFRDistance() {
-        double distance = rightFront.getSelectedSensorPosition() * kDistancePerTick;
+        double distance = rightFront.getPosition().getValueAsDouble() * kDistancePerTick;
         return distance;
     }
 
     public double getFLDistance() {
-        double distance = leftFront.getSelectedSensorPosition() * kDistancePerTick;
+        double distance = leftFront.getPosition().getValueAsDouble() * kDistancePerTick;
         return distance;
     }
 

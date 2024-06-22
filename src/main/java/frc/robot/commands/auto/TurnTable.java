@@ -4,11 +4,11 @@
 
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClawSystem;
 import java.time.LocalTime;
 
-public class TurnTable extends CommandBase {
+public class TurnTable extends Command {
 
     private final ClawSystem clawSystem;
     private double speed;

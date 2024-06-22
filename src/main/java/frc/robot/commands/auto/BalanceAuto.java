@@ -7,10 +7,10 @@ package frc.robot.commands.auto;
 import java.lang.reflect.InaccessibleObjectException;
 
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drivetrain;
 
-public class BalanceAuto extends CommandBase {
+public class BalanceAuto extends Command {
     // are we at the angle that we should go to the next command?
     private Drivetrain drivetrain;
     private double speed;
